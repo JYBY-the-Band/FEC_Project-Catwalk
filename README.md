@@ -21,8 +21,8 @@ HR-LAX47 Front End Capstone Project
   + Search Questions
   + More Answered Questions
   + Add a Question
-+ Add an Answer Modal
-  + Related Items & Comparison
+  + Add an Answer Modal
++ Related Items & Comparison
   + Related Product Cards
   + List Behavior
   + Related Products List
