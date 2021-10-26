@@ -4,7 +4,8 @@
   "description": "Front end capstone project for JYBY the Band (HR-LAX47)",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "react-dev": "webpack --config ./webpack.config.js --mode development -w"
   },
   "repository": {
     "type": "git",
