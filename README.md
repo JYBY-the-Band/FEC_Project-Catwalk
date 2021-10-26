@@ -7,7 +7,6 @@ HR-LAX47 Front End Capstone Project
   + Product information
   + Style selector
   + Add to cart
-+ Product Detail module
 + Ratings & Reviews module
 + Questions & Answers module
 + Related Items & Outfit Creation module
