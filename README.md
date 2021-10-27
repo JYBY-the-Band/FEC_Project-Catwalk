@@ -1,6 +1,8 @@
 # FEC_Project-Catwalk
 HR-LAX47 Front End Capstone Project
 
+[![CircleCI](https://circleci.com/gh/JYBY-the-Band/FEC_Project-Catwalk/tree/main.svg?style=svg&circle-token=0dbb877441131d73a1a8c919ef6a3c49263a4efd)](https://circleci.com/gh/JYBY-the-Band/FEC_Project-Catwalk/tree/main)
+
 ## Product Detail Page containing the following:
 + Overview
   + Product Information
