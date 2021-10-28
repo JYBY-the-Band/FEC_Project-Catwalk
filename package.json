@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.14",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0",
     "react-dom": "^17.0.2",
     "regenerator-runtime": "^0.13.9",
     "webpack": "^5.60.0",
@@ -47,7 +48,12 @@
     "jest": "^27.3.1"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules"]
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ]
   }
 }
