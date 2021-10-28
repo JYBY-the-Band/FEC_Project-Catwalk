@@ -89,3 +89,7 @@ typings/
 
 
 client/dist/bundle.js
+
+# this doesnt want to ignore my config.js file
+# wack
+server/config.js
