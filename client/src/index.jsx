@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Overview from './overview/overview.jsx';
 
 let App = () => (
-  <div>Hello World</div>
+  <div>
+    <Overview />
+  </div>
 );
 
 ReactDOM.render(<App />, document.getElementById('app'));
