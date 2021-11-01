@@ -1,9 +1,10 @@
 import React from 'react';
 import ProductInfo from './ProductInfo.jsx';
+import StarRating from './StarRating.jsx';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 
-let data = {
+let productData = {
   id: 1,
   name: 'Camo Onesie',
   slogan: 'Blend in to your crowd',
@@ -12,6 +13,19 @@ let data = {
   'default_price': '140'
 }
 
+let reviewMetaData = {
+  product_id: 1,
+  ratings: {
+    1: 1,
+    2: 3,
+    3: 4,
+    4: 7,
+    5: 8
+  },
+  // ...
+}
+
+// TODO: find a item with an overview and figure out what to do with it
 let Overview = (props) => {
 
   return (
@@ -19,7 +33,8 @@ let Overview = (props) => {
       <Col>
       </Col>
       <Col>
-        <ProductInfo data={data} />
+        <StarRating data={reviewMetaData} />
+        <ProductInfo data={productData} />
       </Col>
     </Container>
   )
