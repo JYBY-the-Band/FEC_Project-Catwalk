@@ -51,6 +51,4 @@ router.get('/:product_id/related', (req, res) => {
     .catch(err => res.send(err).status(500));
 });
 
-
-
 module.exports = router;

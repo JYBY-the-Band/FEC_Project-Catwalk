@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 // reference taken from https://www.npmjs.com/package/react-modal
+// For styling the modal make sure to use bootstrap's modal.
 // Modal.setAppElement('#yourAppElement');
 
 // function App() {
