@@ -1,38 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Answer from './answer.jsx';
-// keep track of how many answers have been submitted for this question, propbably requires state
+
 class Question extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.question_id, // 123123
-      body: this.props.question_body, // "sgarcag"
-      date: this.props.question_date, // "3015-12-..."
-      asker: this.props.asker_name, // "jack"
-      helpful: this.props.question_helpfulness, // 7
-      reported: this.props.reported, // true
-      answers: Object.values(this.props.answers)
-      .sort((a, b) => { return a.helpfulness - b.helpfulness })
-      .sort((a, b) => {
-        var nameA = a.name.toUpperCase();
-        var nameB = b.name.toUpperCase();
-        if (nameA === "SELLER") {
-          return 1;
-        }
-        if (nameB === "SELLER") {
-          return -1;
-        }
-        return 0;
-      })
+      answers: []
     };
+  }
+
+  componentDidMount() {
+    const answerArr = Object.values(this.props.question.answers);
+    answerArr.sort((a, b) => { return b.helpfulness - a.helpfulness });
+    answerArr.sort((a, b) => {
+      const nameA = a.answerer_name.toUpperCase();
+      let c = 0;
+      const nameB = b.answerer_name.toUpperCase();
+      let d = 0;
+      if (nameA === 'SELLER') {
+        c = 1;
+      }
+      if (nameB === 'SELLER') {
+        d = 1;
+      }
+      return d - c;
+    });
+    this.setState({ answers: answerArr });
   }
 
   render() {
     return (
       <div>
-        <h3>Q: {this.state.body}</h3>
-        <div>Helpful? <a>Yes</a>({this.state.helpful})</div>
+        <h3>Q: {this.props.question.question_body}</h3>
+        <div>
+          <span> Helpful? <a> Yes </a> ({this.props.question.question_helpfulness}) </span>
+          <span> Add Answer </span>
+        </div>
+        <div>
+          <h3>A: </h3>
+          {this.state.answers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+        </div>
       </div>
     );
   }
