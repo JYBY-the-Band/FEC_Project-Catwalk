@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Accordion from 'react-bootstrap/Accordion';
 import Question from './question.jsx';
 // expanding and collapsing accordion, propbably requires state
 class List extends React.Component {
@@ -23,15 +22,8 @@ class List extends React.Component {
   render() {
     return (
       <div>
-        <Accordion flush>
-          <Accordion.Item eventKey="0">
-            <Accordion.Body>
-              {this.state.questions.map((question) =>
-                <Question question={question} key={question.question_id} />)}
-            </Accordion.Body>
-            <Accordion.Button>More Answered Questions</Accordion.Button>
-          </Accordion.Item>
-        </Accordion>
+        {this.state.questions.map((question) =>
+          <Question question={question} key={question.question_id} />)}
       </div>
     );
   }

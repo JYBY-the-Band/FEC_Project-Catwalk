@@ -1,4 +1,5 @@
 import React from 'react';
+import Accordion from 'react-bootstrap/Accordion';
 import Answer from './answer.jsx';
 
 class Question extends React.Component {
@@ -38,7 +39,14 @@ class Question extends React.Component {
         </div>
         <div>
           <h3>A: </h3>
-          {this.state.answers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+          <Accordion flush>
+            <Accordion.Item eventKey="0">
+              <Accordion.Body>
+                {this.state.answers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+              </Accordion.Body>
+              <Accordion.Button>Show more answers</Accordion.Button>
+            </Accordion.Item>
+          </Accordion>
         </div>
       </div>
     );
