@@ -1,17 +1,27 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 class Answer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      seller: 'a'
+      seller: 'a',
+      reported: false
     };
+    this.reportHandler = this.reportHandler.bind(this);
+    this.helpfulHandler = this.helpfulHandler.bind(this);
   }
 
   componentDidMount() {
     if (this.props.answer.answerer_name.toUpperCase() === 'SELLER') {
       this.setState({seller: 'b'});
     }
+  }
+
+  helpfulHandler() {}
+
+  reportHandler() {
+    this.setState({reported: true});
   }
 
   render() {
@@ -24,9 +34,14 @@ class Answer extends React.Component {
           , {new Date(`${this.props.answer.date}`).toDateString()}
           </span>
           <span>
-            Helpful? <a> Yes </a> ({this.props.answer.helpfulness})
+            Helpful?
+            <Button variant="link" onClick={this.helpfulHandler}>
+              Yes ({this.props.answer.helpfulness})
+            </Button>
           </span>
-          <span> Report </span>
+          <Button variant="link" onClick={this.reportHandler}>
+            {this.state.reported ? 'Reported' : 'Report'}
+          </Button>
         </div>
       </div>
     );
