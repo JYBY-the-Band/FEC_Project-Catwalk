@@ -6,8 +6,10 @@ class Question extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: []
+      answers: [],
+      toggle: true
     };
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +31,10 @@ class Question extends React.Component {
     this.setState({ answers: answerArr });
   }
 
+  clickHandler() {
+    this.setState((prevState) => ({ toggle: !prevState.toggle }));
+  }
+
   render() {
     return (
       <div>
@@ -44,7 +50,9 @@ class Question extends React.Component {
               <Accordion.Body>
                 {this.state.answers.map((answer) => <Answer answer={answer} key={answer.id} />)}
               </Accordion.Body>
-              <Accordion.Button>Show more answers</Accordion.Button>
+              <Accordion.Button onClick={this.clickHandler}>
+                {this.state.toggle ? 'Show more answers' : 'Collapse answers'}
+              </Accordion.Button>
             </Accordion.Item>
           </Accordion>
         </div>
