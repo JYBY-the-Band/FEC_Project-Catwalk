@@ -9,7 +9,7 @@ class Question extends React.Component {
     super(props);
     this.state = {
       answers: [],
-      toggle: true
+      toggle: true,
     };
     this.accordHandler = this.accordHandler.bind(this);
   }
@@ -47,20 +47,20 @@ class Question extends React.Component {
           <h3>
             Q: {this.props.question.question_body}
           </h3>
-          <div>
-            <span> Helpful? </span>
-            <Button variant="link">
-              Yes ({this.props.question.question_helpfulness})
-            </Button>
-            <AddAnswer></AddAnswer>
-          </div>
+          <span> Helpful? </span>
+          <Button variant="link">
+            Yes ({this.props.question.question_helpfulness})
+          </Button>
+          <AddAnswer></AddAnswer>
           <div>
             <h3>A: </h3>
-            {this.state.answers.slice(0,2).map((answer) => <Answer answer={answer} key={answer.id} />)}
+            {this.state.answers.slice(0, 2).map((answer) => (
+              <Answer answer={answer} key={answer.id} />))}
             <Accordion>
               <Accordion.Item eventKey="0">
                 <Accordion.Body>
-                  {this.state.answers.slice(2).map((answer) => <Answer answer={answer} key={answer.id} />)}
+                  {this.state.answers.slice(2).map((answer) => (
+                    <Answer answer={answer} key={answer.id} />))}
                 </Accordion.Body>
                 <Accordion.Button onClick={this.accordHandler}>
                   {this.state.toggle ? 'See more answers' : 'Collapse answers'}
@@ -74,13 +74,11 @@ class Question extends React.Component {
     return (
       <div>
         <h3>Q: {this.props.question.question_body}</h3>
-        <div>
-          <span> Helpful? </span>
-          <Button variant="link">
-            Yes ({this.props.question.question_helpfulness})
-          </Button>
-          <AddAnswer></AddAnswer>
-        </div>
+        <span> Helpful? </span>
+        <Button variant="link">
+          Yes ({this.props.question.question_helpfulness})
+        </Button>
+        <AddAnswer></AddAnswer>
         <div>
           <h3>A: </h3>
           {this.state.answers.map((answer) => <Answer answer={answer} key={answer.id} />)}

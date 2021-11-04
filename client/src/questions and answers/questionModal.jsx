@@ -1,50 +1,136 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
-// reference taken from https://www.npmjs.com/package/react-modal
-// For styling the modal make sure to use bootstrap's modal.
-// Modal.setAppElement('#yourAppElement');
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-// function App() {
-//   let subtitle;
-//   const [modalIsOpen, setIsOpen] = React.useState(false);
+class AddQuestion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false,
+      validated: false,
+      answerer_name: '',
+      body: '',
+      email: '',
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-//   function openModal() {
-//     setIsOpen(true);
-//   }
+  handleClose() {
+    this.setState({ show: false, validated: false });
+  }
 
-//   function afterOpenModal() {
-//     // references are now sync'd and can be accessed.
-//     subtitle.style.color = '#f00';
-//   }
+  handleShow() {
+    this.setState({ show: true });
+  }
 
-//   function closeModal() {
-//     setIsOpen(false);
-//   }
+  handleChange(e) {
+    if (e.target.id === 'answerer_name') {
+      this.setState({ answerer_name: e.target.value });
+    }
+    if (e.target.id === 'body') {
+      this.setState({ body: e.target.value });
+    }
+    if (e.target.id === 'email') {
+      this.setState({ email: e.target.value });
+    }
+  }
 
-//   return (
-//     <div>
-//       <button onClick={openModal}>Open Modal</button>
-//       <Modal
-//         isOpen={modalIsOpen}
-//         onAfterOpen={afterOpenModal}
-//         onRequestClose={closeModal}
-//         style={customStyles}
-//         contentLabel="Example Modal"
-//       >
-//         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-//         <button onClick={closeModal}>close</button>
-//         <div>I am a modal</div>
-//         <form>
-//           <input />
-//           <button>tab navigation</button>
-//           <button>stays</button>
-//           <button>inside</button>
-//           <button>the modal</button>
-//         </form>
-//       </Modal>
-//     </div>
-//   );
-// }
+  handleSubmit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    } else {
+      console.log('Form subitted'); // TODO submit the form data to database
+    }
+    this.setState({ validated: true });
+  }
 
-// ReactDOM.render(<App />, appElement);
+  render() {
+    return (
+      <>
+        <Button variant="primary" onClick={this.handleShow}>
+          Add Question
+        </Button>
+
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Ask Your Question</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+              <Form.Group controlId="answerer_name">
+                <Form.Label>What is your nickname *</Form.Label>
+                <Form.Control
+                  maxLength="60"
+                  required
+                  type="text"
+                  placeholder="Example: jackson11"
+                  value={this.state.answerer_name}
+                  onChange={this.handleChange}
+                />
+                <Form.Text className="text-muted">
+                  For privacy reasons, do not use your full name or email address
+                </Form.Text>
+                <Form.Control.Feedback type="invalid">
+                  You must enter a nickname
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Label>Your Email *</Form.Label>
+                <Form.Control
+                  maxLength="60"
+                  required
+                  type="email"
+                  placeholder="Example: jack@email.com"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+                <Form.Text className="text-muted">
+                  For authentication reasons, you will not be emailed
+                </Form.Text>
+                <Form.Control.Feedback type="invalid">
+                  You must enter a valid email
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="body">
+                <Form.Label>Your Question *</Form.Label>
+                <Form.Control
+                  maxLength="1000"
+                  required
+                  as="textarea"
+                  placeholder="Why did you like the product or not?"
+                  rows={3}
+                  value={this.state.body}
+                  onChange={this.handleChange}
+                />
+                <Form.Control.Feedback type="invalid">
+                  You must enter an answer
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
+}
+
+export default AddQuestion;

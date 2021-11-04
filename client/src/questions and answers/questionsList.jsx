@@ -2,33 +2,36 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Question from './question.jsx';
+import AddQuestion from './questionModal.jsx';
 
 class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: 42366, // TODO, get state from product module
+      productId: 42366, // TODO, get state from product module
       questions: [],
-      display: 4
+      display: 2,
     };
     this.loadQuestions = this.loadQuestions.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`/api/qa/questions/${this.state.product}`)
-      .then(({ data }) => this.setState({ questions: data.results }))
-      .then(this.state.questions.sort((a, b) => { return a.question_helpfulness - b.question_helpfulness }))
-      .catch(err=>console.error(err));
+    axios.get(`/api/qa/questions/${this.state.productId}`)
+      .then(({ data }) => data.results.sort((a, b) => (
+        b.question_helpfulness - a.question_helpfulness)))
+      .then((results) => this.setState({ questions: results }))
+      .catch((err) => console.error(err));
   }
 
   loadQuestions() {
-    this.setState({ display: this.state.display + 2 });
+    const currentState = this.state.display;
+    this.setState({ display: currentState + 2 });
   }
 
   render() {
     if (this.state.questions.length === 0) {
       return (
-        <Button variant="secondary">Add Question</Button>
+        <AddQuestion></AddQuestion>
       );
     }
     if (this.state.questions.length <= this.state.display) {
@@ -36,6 +39,7 @@ class List extends React.Component {
         <div>
           {this.state.questions.map((question) =>
             <Question question={question} key={question.question_id} />)}
+          <AddQuestion></AddQuestion>
         </div>
       );
     }
@@ -46,6 +50,7 @@ class List extends React.Component {
         <Button variant="secondary" onClick={this.loadQuestions}>
           More Answered Questions
         </Button>
+        <AddQuestion></AddQuestion>
       </div>
     );
   }
