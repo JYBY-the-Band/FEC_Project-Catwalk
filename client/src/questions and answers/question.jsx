@@ -12,6 +12,7 @@ class Question extends React.Component {
       toggle: true,
     };
     this.accordHandler = this.accordHandler.bind(this);
+    this.helpfulHandler = this.helpfulHandler.bind(this);
   }
 
   componentDidMount() {
@@ -22,23 +23,22 @@ class Question extends React.Component {
         let c = 0;
         const nameB = b.answerer_name.toUpperCase();
         let d = 0;
-        if (nameA === 'SELLER') {
-          c = 1;
-        }
-        if (nameB === 'SELLER') {
-          d = 1;
-        }
+        if (nameA === 'SELLER') { c = 1; }
+        if (nameB === 'SELLER') { d = 1; }
         return d - c;
       });
-    this.setState({ answers: answerArr });
-    this.addAnswer = this.addAnswer.bind(this);
+    this.setState({ answers: answerArr });// TODO set helpful to true if is true in database
   }
 
   accordHandler() {
     this.setState((prevState) => ({ toggle: !prevState.toggle }));
   }
 
-  addAnswer(){}
+  helpfulHandler() {
+    if (!this.state.helpful) {
+      this.setState({ helpful: true });// TODO Update helpful stat in database
+    }
+  }
 
   render() {
     if (this.state.answers.length > 2) {
@@ -48,10 +48,10 @@ class Question extends React.Component {
             Q: {this.props.question.question_body}
           </h3>
           <span> Helpful? </span>
-          <Button variant="link">
+          <Button variant="link" onClick={this.helpfulHandler}>
             Yes ({this.props.question.question_helpfulness})
           </Button>
-          <AddAnswer></AddAnswer>
+          <AddAnswer />
           <div>
             <h3>A: </h3>
             {this.state.answers.slice(0, 2).map((answer) => (
@@ -75,13 +75,15 @@ class Question extends React.Component {
       <div>
         <h3>Q: {this.props.question.question_body}</h3>
         <span> Helpful? </span>
-        <Button variant="link">
+        <Button variant="link" onClick={this.helpfulHandler}>
           Yes ({this.props.question.question_helpfulness})
         </Button>
-        <AddAnswer></AddAnswer>
+        <AddAnswer />
         <div>
           <h3>A: </h3>
-          {this.state.answers.map((answer) => <Answer answer={answer} key={answer.id} />)}
+          {this.state.answers.map(
+            (answer) => <Answer answer={answer} key={answer.id} />,
+          )}
         </div>
       </div>
     );

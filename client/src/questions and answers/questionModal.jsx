@@ -9,7 +9,7 @@ class AddQuestion extends React.Component {
     this.state = {
       show: false,
       validated: false,
-      answerer_name: '',
+      asker_name: '',
       body: '',
       email: '',
     };
@@ -28,7 +28,7 @@ class AddQuestion extends React.Component {
   }
 
   handleChange(e) {
-    if (e.target.id === 'answerer_name') {
+    if (e.target.id === 'asker_name') {
       this.setState({ answerer_name: e.target.value });
     }
     if (e.target.id === 'body') {
@@ -68,14 +68,14 @@ class AddQuestion extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-              <Form.Group controlId="answerer_name">
+              <Form.Group controlId="asker_name">
                 <Form.Label>What is your nickname *</Form.Label>
                 <Form.Control
                   maxLength="60"
                   required
                   type="text"
                   placeholder="Example: jackson11"
-                  value={this.state.answerer_name}
+                  value={this.state.asker_name}
                   onChange={this.handleChange}
                 />
                 <Form.Text className="text-muted">
@@ -109,7 +109,7 @@ class AddQuestion extends React.Component {
                   required
                   as="textarea"
                   placeholder="Why did you like the product or not?"
-                  rows={3}
+                  rows={6}
                   value={this.state.body}
                   onChange={this.handleChange}
                 />
@@ -117,7 +117,7 @@ class AddQuestion extends React.Component {
                   You must enter an answer
                 </Form.Control.Feedback>
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" size="sm" type="submit">
                 Submit
               </Button>
             </Form>

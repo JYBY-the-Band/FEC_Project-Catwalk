@@ -108,7 +108,7 @@ class AddAnswer extends React.Component {
                   maxLength="1000"
                   required
                   as="textarea"
-                  rows={3}
+                  rows={6}
                   value={this.state.body}
                   onChange={this.handleChange}
                 />
@@ -116,7 +116,7 @@ class AddAnswer extends React.Component {
                   You must enter an answer
                 </Form.Control.Feedback>
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" size="sm" type="submit">
                 Submit
               </Button>
             </Form>
