@@ -54,7 +54,7 @@ class AddQuestion extends React.Component {
     return (
       <>
         <Button variant="primary" onClick={this.handleShow}>
-          Add Question
+          Add  a Question +
         </Button>
 
         <Modal

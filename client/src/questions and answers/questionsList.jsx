@@ -1,4 +1,7 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Question from './question.jsx';
@@ -32,10 +35,11 @@ class List extends React.Component {
   }
 
   filter(value) { // TODO filter displayed questions based on search value
-    if (value.length > 3) {
-      value // thing to filter by
-      this.state.questions[0].question_body // array of objects filtered by question body
-      // this.setState({ rendered: filteredArr });
+    const check = value.length;
+    if (check > 2) {
+      const filteredArr = this.state.questions.filter((question) => (
+        question.question_body.slice(0, check).toUpperCase() === value.toUpperCase()));
+      this.setState({ rendered: filteredArr });
     } else {
       const allQ = this.state.questions
       this.setState({ rendered: allQ });
@@ -43,33 +47,41 @@ class List extends React.Component {
   }
 
   render() {
-    if (this.state.rendered.length === 0) {
+    if (this.state.questions.length === 0) {
       return (
-        <AddQuestion />
+        <Container><AddQuestion /></Container>
       );
     }
     if (this.state.rendered.length <= this.state.display) {
       return (
-        <div>
-          <Search handleSearchInputChange={this.filter} />
-          {this.state.rendered.map(
-            (question) => <Question question={question} key={question.question_id} />,
-          )}
+        <Container>
+          <Row><Search handleSearchInputChange={this.filter} /></Row>
+          <Row style={ { maxHeight: 425, overflow: 'auto' } }>
+            {this.state.rendered.map(
+              (question) => <Question question={question} key={question.question_id} />,
+            )}
+          </Row>
           <AddQuestion />
-        </div>
+        </Container>
       );
     }
     return (
-      <div>
-        <Search handleSearchInputChange={this.filter} />
-        {this.state.rendered.slice(0, this.state.display).map(
-          (question) => <Question question={question} key={question.question_id} />,
-        )}
-        <Button variant="secondary" onClick={this.loadQuestions}>
-          More Answered Questions
-        </Button>
-        <AddQuestion />
-      </div>
+      <Container>
+        <Row><Search handleSearchInputChange={this.filter} /></Row>
+        <Row style={ { maxHeight: 425, overflow: 'auto' } }>
+          {this.state.rendered.slice(0, this.state.display).map(
+            (question) => <Question question={question} key={question.question_id} />,
+          )}
+        </Row>
+        <Row>
+          <Col>
+            <Button variant="secondary" onClick={this.loadQuestions}>
+              More Answered Questions
+            </Button>
+          </Col>
+          <Col><AddQuestion /></Col>
+        </Row>
+      </Container>
     );
   }
 }

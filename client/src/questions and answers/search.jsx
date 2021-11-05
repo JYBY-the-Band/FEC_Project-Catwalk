@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 
 class Search extends React.Component {
@@ -17,7 +18,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <Form.Control
           size="lg"
           type="text"
@@ -25,7 +26,7 @@ class Search extends React.Component {
           value={this.state.value}
           onChange={this.handleChange}
         />
-      </div>
+      </Container>
     );
   }
 }

@@ -1,4 +1,7 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 class Answer extends React.Component {
@@ -33,26 +36,28 @@ class Answer extends React.Component {
 
   render() {
     return (
-      <div>
-        <h6> {this.props.answer.body} </h6>
-        <div>
-          <span>
+      <Container>
+        <Row><h5>{this.props.answer.body}</h5></Row>
+        <Row style={ { fontSize: 12 } }>
+          <Col sm="auto">
             by<this.state.seller> {this.props.answer.answerer_name}</this.state.seller>
-            , {new Date(`${this.props.answer.date}`).toDateString()}
-          </span>
-          <span>
+          </Col>
+          <Col sm="auto">
+            {new Date(`${this.props.answer.date}`).toDateString()}
+          </Col>
+          <Col sm="auto">
             Helpful?
-            <Button variant="link" onClick={this.helpfulHandler}>
-              Yes (
-                {this.props.answer.helpfulness}
-              )
+            <Button variant="link" size="sm" onClick={this.helpfulHandler}>
+              {`Yes (${this.props.answer.helpfulness})`}
             </Button>
-          </span>
-          <Button variant="link" onClick={this.reportHandler}>
-            {this.state.reported ? 'Reported' : 'Report'}
-          </Button>
-        </div>
-      </div>
+          </Col>
+          <Col sm="auto">
+            <Button variant="link" size="sm" onClick={this.reportHandler}>
+              {this.state.reported ? 'Reported' : 'Report'}
+            </Button>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
