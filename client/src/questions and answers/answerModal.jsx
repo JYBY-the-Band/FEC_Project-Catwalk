@@ -9,14 +9,20 @@ class AddAnswer extends React.Component {
     this.state = {
       show: false,
       validated: false,
+      question_id: null,
       answerer_name: '',
       body: '',
       email: '',
+      photos: [],
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ question_id: this.props.question_id });
   }
 
   handleClose() {
@@ -46,6 +52,12 @@ class AddAnswer extends React.Component {
       e.stopPropagation();
     } else {
       console.log('Form subitted'); // TODO submit the form data to database
+      // axios.post(`/api/qa/questions/${this.state.question_id}/answers`, {
+      //   body: this.state.body,
+      //   name: this.state.answerer_name,
+      //   email: this.state.email,
+      //   photos: this.state.photos,
+      // });
     }
     this.setState({ validated: true });
   }

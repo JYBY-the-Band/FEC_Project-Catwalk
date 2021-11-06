@@ -34,7 +34,7 @@ class List extends React.Component {
     this.setState({ display: currentState + 2 });
   }
 
-  filter(value) { // TODO filter displayed questions based on search value
+  filter(value) {
     const check = value.length;
     if (check > 2) {
       const filteredArr = this.state.questions.filter((question) => (
@@ -49,7 +49,7 @@ class List extends React.Component {
   render() {
     if (this.state.questions.length === 0) {
       return (
-        <Container><AddQuestion /></Container>
+        <Container><AddQuestion product={this.state.productId} /></Container>
       );
     }
     if (this.state.rendered.length <= this.state.display) {
@@ -61,7 +61,7 @@ class List extends React.Component {
               (question) => <Question question={question} key={question.question_id} />,
             )}
           </Row>
-          <AddQuestion />
+          <AddQuestion product={this.state.productId} />
         </Container>
       );
     }
@@ -79,7 +79,7 @@ class List extends React.Component {
               More Answered Questions
             </Button>
           </Col>
-          <Col><AddQuestion /></Col>
+          <Col><AddQuestion product={this.state.productId} /></Col>
         </Row>
       </Container>
     );

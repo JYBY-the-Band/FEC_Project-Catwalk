@@ -46,6 +46,12 @@ class AddQuestion extends React.Component {
       e.stopPropagation();
     } else {
       console.log('Form subitted'); // TODO submit the form data to database
+      // axios.post(`/api/qa/questions/`, {
+      //   body: this.state.body,
+      //   name: this.state.asker_name,
+      //   email: this.state.email,
+      //   product_id: this.props.product,
+      // });
     }
     this.setState({ validated: true });
   }

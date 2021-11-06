@@ -30,8 +30,8 @@ class Question extends React.Component {
         if (nameB === 'SELLER') { d = 1; }
         return d - c;
       });
-    this.setState({ answers: answerArr });// TODO set helpful to true if is true in database
-  }
+    this.setState({ answers: answerArr });
+  }// TODO set helpful to true if is true in database for curretent user
 
   accordHandler() {
     this.setState((prevState) => ({ toggle: !prevState.toggle }));
@@ -39,7 +39,7 @@ class Question extends React.Component {
 
   helpfulHandler() {
     if (!this.state.helpful) {
-      this.setState({ helpful: true });// TODO Update helpful stat in database
+      this.setState({ helpful: true });// TODO Update helpful stat in database for current user
     }
   }
 
@@ -58,7 +58,7 @@ class Question extends React.Component {
               </Button>
             </Col>
             <Col sm={2}>
-              <AddAnswer />
+              <AddAnswer question_id={this.props.question.question_id} />
             </Col>
           </Row>
           <Row>
@@ -97,7 +97,7 @@ class Question extends React.Component {
             </Button>
           </Col>
           <Col sm={2}>
-            <AddAnswer />
+            <AddAnswer question_id={this.props.question.question_id} />
           </Col>
         </Row>
         <Row>

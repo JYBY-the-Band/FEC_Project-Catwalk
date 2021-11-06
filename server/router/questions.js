@@ -6,7 +6,7 @@ const config = require('../config.js');
 router.get('/:product_id', (req, res) => {
   axios.get(`${config.url}/qa/questions/?product_id=${req.params.product_id}`, {
     headers: {
-      'Authorization': config.token
+      Authorization: config.token,
     }
   })
     .then(data => {
@@ -18,7 +18,7 @@ router.get('/:product_id', (req, res) => {
 router.get('/:question_id/answers', (req, res) => {
   axios.get(`${config.url}/qa/questions/${req.params.question_id}/answers`, {
     headers: {
-      'Authorization': config.token
+      Authorization: config.token,
     }
   })
     .then(data => {
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
     body: req.params.body,
     name: req.params.name,
     email: req.params.email,
-    product_id: req.params.product_id
+    product_id: req.params.product_id,
   })
     .then(() => {
       res.sendStatus(201);
@@ -45,7 +45,7 @@ router.post(':question_id/answers', (req, res) => {
     body: req.params.body,
     name: req.params.name,
     email: req.params.email,
-    photos: req.params.photos
+    photos: req.params.photos,
   })
     .then(() => {
       res.sendStatus(201);
