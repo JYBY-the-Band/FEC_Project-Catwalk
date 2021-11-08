@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProductInfo from './ProductInfo.jsx';
 import StarRating from './StarRating.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import StyleSelector from './StyleSelector.jsx';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -98,6 +99,7 @@ let productStyles = {
 // TODO: find a item with an overview and figure out what to do with it
 let Overview = (props) => {
 
+  const [selectedStyle, selectStyle] = useState(0);
 
   // TODO: fetch data from api
 
@@ -106,11 +108,12 @@ let Overview = (props) => {
       <Row>
 
         <Col>
-          <ImageGallery data={productStyles} />
+          <ImageGallery data={productStyles} selectedStyle={selectedStyle} />
         </Col>
         <Col xs={3}>
           <StarRating data={reviewMetaData} />
           <ProductInfo data={productData} />
+          <StyleSelector data={productStyles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
         </Col>
       </Row>
     </Container>

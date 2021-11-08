@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
 let ImageGallery = (props) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(props.selectedStyle);
+
+  useEffect(() => {
+    setIndex(props.selectedStyle);
+  }, [props.selectedStyle]);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
