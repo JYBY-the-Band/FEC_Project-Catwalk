@@ -8,7 +8,7 @@ let Style = (props) => {
     return (
       <div>
         <img
-          className='d-inline w-75 py-3'
+          className='d-inline w-75 py-3 border border-dark rounded-circle'
           src={props.data.photos[0].thumbnail_url}
           onClick={() => {
             props.selectStyle(props.index);
@@ -20,7 +20,7 @@ let Style = (props) => {
   return (
     <div>
       <img
-        className='d-inline w-75 py-3'
+        className='d-inline w-75 py-3 border border-dark rounded-circle'
         src={props.data.photos[0].thumbnail_url}
         onClick={() => {
           props.selectStyle(props.index);
@@ -47,7 +47,7 @@ let Style = (props) => {
 let StyleSelector = (props) => {
   return (
     <div>
-      <span><b>Style ></b> Selected Style</span>
+      <span><b>Style ></b> {props.data.results[props.selectedStyle].name}</span>
       <Container>
         {/* TODO: Figure out how to make this wrap at 4 */}
         <Row>
@@ -58,6 +58,12 @@ let StyleSelector = (props) => {
               </Col>
             )
           })}
+        </Row>
+        <Row>
+          {/* TODO: Size selection qty */}
+        </Row>
+        <Row>
+          {/* TODO: Add to bag, favorite */}
         </Row>
       </Container>
     </div>
