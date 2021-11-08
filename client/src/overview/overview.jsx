@@ -38,8 +38,8 @@ let productStyles = {
       "default?": true,
       "photos": [
         {
-          "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
-          "url": "urlplaceholder/style_1_photo_number.jpg"
+          "thumbnail_url": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+          "url": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
         },
         {
           "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
@@ -71,8 +71,8 @@ let productStyles = {
       "default?": false,
       "photos": [
         {
-          "thumbnail_url": "urlplaceholder/style_2_photo_number_thumbnail.jpg",
-          "url": "urlplaceholder/style_2_photo_number.jpg"
+          "thumbnail_url": "https://www.computerhope.com/jargon/j/jpg.png",
+          "url": "https://www.computerhope.com/jargon/j/jpg.png"
         }
         // ...
       ],
