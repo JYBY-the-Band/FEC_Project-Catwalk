@@ -1,7 +1,9 @@
 import React from 'react';
 import ProductInfo from './ProductInfo.jsx';
 import StarRating from './StarRating.jsx';
+import ImageGallery from './ImageGallery.jsx';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 let productData = {
@@ -25,17 +27,92 @@ let reviewMetaData = {
   // ...
 }
 
+let productStyles = {
+  "product_id": "1",
+  "results": [
+    {
+      "style_id": 1,
+      "name": "Forest Green & Black",
+      "original_price": "140",
+      "sale_price": "0",
+      "default?": true,
+      "photos": [
+        {
+          "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
+          "url": "urlplaceholder/style_1_photo_number.jpg"
+        },
+        {
+          "thumbnail_url": "urlplaceholder/style_1_photo_number_thumbnail.jpg",
+          "url": "urlplaceholder/style_1_photo_number.jpg"
+        }
+        // ...
+      ],
+      "skus": {
+        "37": {
+          "quantity": 8,
+          "size": "XS"
+        },
+        "38": {
+          "quantity": 16,
+          "size": "S"
+        },
+        "39": {
+          "quantity": 17,
+          "size": "M"
+        },
+        //...
+      }
+    },
+    {
+      "style_id": 2,
+      "name": "Desert Brown & Tan",
+      "original_price": "140",
+      "sale_price": "0",
+      "default?": false,
+      "photos": [
+        {
+          "thumbnail_url": "urlplaceholder/style_2_photo_number_thumbnail.jpg",
+          "url": "urlplaceholder/style_2_photo_number.jpg"
+        }
+        // ...
+      ],
+      "skus": {
+        "37": {
+          "quantity": 8,
+          "size": "XS"
+        },
+        "38": {
+          "quantity": 16,
+          "size": "S"
+        },
+        "39": {
+          "quantity": 17,
+          "size": "M"
+        },
+        //...
+      }
+    }
+  ]
+}
+
 // TODO: find a item with an overview and figure out what to do with it
 let Overview = (props) => {
 
+
+  // TODO: fetch data from api
+
   return (
     <Container>
-      <Col>
-      </Col>
-      <Col>
-        <StarRating data={reviewMetaData} />
-        <ProductInfo data={productData} />
-      </Col>
+      <Row>
+
+        <Col>
+          <ImageGallery data={productStyles} />
+        </Col>
+        <Col xs={3}>
+          <StarRating data={reviewMetaData} />
+          <ProductInfo data={productData} />
+        </Col>
+      </Row>
     </Container>
   )
 }
