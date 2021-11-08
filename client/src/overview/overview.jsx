@@ -112,7 +112,7 @@ let Overview = (props) => {
         </Col>
         <Col xs={3}>
           <StarRating data={reviewMetaData} />
-          <ProductInfo data={productData} />
+          <ProductInfo data={productData} selectedStyle={selectedStyle} styles={productStyles} />
           <StyleSelector data={productStyles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
         </Col>
       </Row>

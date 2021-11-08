@@ -17,7 +17,8 @@ let ProductInfo = (props) => {
       </Row>
       <Row>
         <p>
-          ${props.data.default_price}
+          {/* TODO: sales */}
+          ${props.styles.results[props.selectedStyle].original_price}
         </p>
       </Row>
     </div>
