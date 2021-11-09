@@ -8,8 +8,13 @@ let ImageGallery = (props) => {
     setIndex(props.selectedStyle);
   }, [props.selectedStyle]);
 
+  // this is weird, but else it will go 1 too many
   const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
+    if (selectedIndex > props.data.results.length - 1) {
+      setIndex(props.data.results.length - 1);
+    } else {
+      setIndex(selectedIndex);
+    }
   }
 
   return (
@@ -18,7 +23,11 @@ let ImageGallery = (props) => {
         return (
           <Carousel.Item>
             <img
-              className='d-block w-100'
+              className='d-block p-3 mx-auto'
+              style={{
+                maxHeight: '750px',
+                maxWidth: '800px'
+              }}
               src={item.photos[0].url}
             />
           </Carousel.Item>
@@ -33,9 +42,9 @@ let ImageGallery = (props) => {
               onClick={(e) => handleSelect(index, e)}
             >
               <img
-                className='d-inline w-25'
+                className='d-inline w-50 img-thumbnail'
                 src={item.photos[0].thumbnail_url}
-                 />
+              />
             </li>
           )
         })}

@@ -8,7 +8,7 @@ let Style = (props) => {
     return (
       <div>
         <img
-          className='d-inline w-75 py-3 border border-dark rounded-circle'
+          className='d-inline w-100 py-3 border border-dark rounded-circle'
           src={props.data.photos[0].thumbnail_url}
           onClick={() => {
             props.selectStyle(props.index);
@@ -20,7 +20,7 @@ let Style = (props) => {
   return (
     <div>
       <img
-        className='d-inline w-75 py-3 border border-dark rounded-circle'
+        className='d-inline w-100 py-3 border border-dark rounded-circle'
         src={props.data.photos[0].thumbnail_url}
         onClick={() => {
           props.selectStyle(props.index);
@@ -31,11 +31,11 @@ let Style = (props) => {
           {
             position: 'absolute',
             transform: 'translate(-50%, 0%)',
-            width: '50px',
-            height: '50px',
+            width: '40px',
+            height: '40px',
             backgroundColor: 'white',
-            borderRadius: '25px',
-            border: '2px solid black'
+            borderRadius: '20px',
+            border: '1px solid black'
           }
         }
         src='https://www.freeiconspng.com/thumbs/checkmark-png/black-checkmark-png-4.png'
@@ -53,7 +53,7 @@ let StyleSelector = (props) => {
         <Row>
           {props.data.results.map((item, index) => {
             return (
-              <Col>
+              <Col xs={3}>
                 <Style data={item} selectStyle={props.selectStyle} index={index} selected={index === props.selectedStyle} />
               </Col>
             )
