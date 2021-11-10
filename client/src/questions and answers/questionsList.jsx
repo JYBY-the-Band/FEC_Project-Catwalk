@@ -12,6 +12,7 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '', // TODO, figure out where user info comes from
       productId: 42366, // TODO, get state from product module
       questions: [],
       rendered: [],
@@ -25,7 +26,11 @@ class List extends React.Component {
     axios.get(`/api/qa/questions/${this.state.productId}`)
       .then(({ data }) => data.results.sort((a, b) => (
         b.question_helpfulness - a.question_helpfulness)))
-      .then((results) => this.setState({ questions: results, rendered: results }))
+      .then((results) => this.setState({
+        questions: results,
+        rendered: results,
+        user: this.props.user,// assuming user will be passed as a prop
+      }))
       .catch((err) => console.error(err));
   }
 
@@ -56,10 +61,15 @@ class List extends React.Component {
       return (
         <Container>
           <Row><Search handleSearchInputChange={this.filter} /></Row>
-          <Row style={ { maxHeight: 425, overflow: 'auto' } }>
-            {this.state.rendered.map(
-              (question) => <Question question={question} key={question.question_id} />,
-            )}
+          <Row style={{ maxHeight: 425, overflow: 'auto' }}>
+            {this.state.rendered.map((question) => (
+              <Question
+                user={this.state.user}
+                product={this.state.productId}
+                question={question}
+                key={question.question_id}
+              />
+            ))}
           </Row>
           <AddQuestion product={this.state.productId} />
         </Container>
@@ -68,10 +78,15 @@ class List extends React.Component {
     return (
       <Container>
         <Row><Search handleSearchInputChange={this.filter} /></Row>
-        <Row style={ { maxHeight: 425, overflow: 'auto' } }>
-          {this.state.rendered.slice(0, this.state.display).map(
-            (question) => <Question question={question} key={question.question_id} />,
-          )}
+        <Row style={{ maxHeight: 425, overflow: 'auto' }}>
+          {this.state.rendered.slice(0, this.state.display).map((question) => (
+            <Question
+              user={this.state.user}
+              product={this.state.productId}
+              question={question}
+              key={question.question_id}
+            />
+          ))}
         </Row>
         <Row>
           <Col>

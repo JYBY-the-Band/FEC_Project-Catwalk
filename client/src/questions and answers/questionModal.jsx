@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 class AddQuestion extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class AddQuestion extends React.Component {
 
   handleChange(e) {
     if (e.target.id === 'asker_name') {
-      this.setState({ answerer_name: e.target.value });
+      this.setState({ asker_name: e.target.value });
     }
     if (e.target.id === 'body') {
       this.setState({ body: e.target.value });
@@ -44,16 +45,23 @@ class AddQuestion extends React.Component {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
+      this.setState({ validated: true });
     } else {
-      console.log('Form subitted'); // TODO submit the form data to database
-      // axios.post(`/api/qa/questions/`, {
-      //   body: this.state.body,
-      //   name: this.state.asker_name,
-      //   email: this.state.email,
-      //   product_id: this.props.product,
-      // });
+      axios.post('/api/qa/questions/', {
+        body: this.state.body,
+        name: this.state.asker_name,
+        email: this.state.email,
+        product_id: this.props.product,
+      })
+        .then(this.setState({
+          show: false,
+          validated: false,
+          asker_name: '',
+          body: '',
+          email: '',
+        }))
+        .catch((err) => console.error(err));
     }
-    this.setState({ validated: true });
   }
 
   render() {
@@ -70,7 +78,11 @@ class AddQuestion extends React.Component {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Ask Your Question</Modal.Title>
+            <Modal.Title>
+              Ask Your Question{"\n"}
+              <h6>About the {this.props.product}</h6>
+            </Modal.Title>
+
           </Modal.Header>
           <Modal.Body>
             <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
@@ -120,7 +132,7 @@ class AddQuestion extends React.Component {
                   onChange={this.handleChange}
                 />
                 <Form.Control.Feedback type="invalid">
-                  You must enter an answer
+                  You must ask a question
                 </Form.Control.Feedback>
               </Form.Group>
               <Button variant="primary" size="sm" type="submit">

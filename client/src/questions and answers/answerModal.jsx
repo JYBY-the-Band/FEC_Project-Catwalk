@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 class AddAnswer extends React.Component {
   constructor(props) {
@@ -50,16 +51,24 @@ class AddAnswer extends React.Component {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
+      this.setState({ validated: true });
     } else {
-      console.log('Form subitted'); // TODO submit the form data to database
-      // axios.post(`/api/qa/questions/${this.state.question_id}/answers`, {
-      //   body: this.state.body,
-      //   name: this.state.answerer_name,
-      //   email: this.state.email,
-      //   photos: this.state.photos,
-      // });
+      axios.post(`/api/qa/questions/${this.state.question_id}/answers`, {
+        body: this.state.body,
+        name: this.state.answerer_name,
+        email: this.state.email,
+        photos: this.state.photos,
+      })
+        .then(this.setState({
+          show: false,
+          validated: false,
+          answerer_name: '',
+          body: '',
+          email: '',
+          photos: [],
+        }))
+        .catch((err) => console.error(err));
     }
-    this.setState({ validated: true });
   }
 
   render() {
@@ -76,7 +85,9 @@ class AddAnswer extends React.Component {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Submit your Answer</Modal.Title>
+            <Modal.Title>Submit your Answer{"\n"}
+              <h6>{this.props.product}: {this.props.question}</h6>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
