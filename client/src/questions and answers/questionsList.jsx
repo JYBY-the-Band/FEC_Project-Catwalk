@@ -23,55 +23,59 @@ class List extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/qa/questions/${this.state.productId}`)
+    const { productId } = this.state;
+    const { user } = this.props;
+    axios.get(`/api/qa/questions/${productId}`)
       .then(({ data }) => data.results.sort((a, b) => (
         b.question_helpfulness - a.question_helpfulness)))
       .then((results) => this.setState({
         questions: results,
         rendered: results,
-        user: this.props.user,// assuming user will be passed as a prop
+        user, // assuming user will be passed as a prop
       }))
       .catch((err) => console.error(err));
   }
 
   loadQuestions() {
-    const currentState = this.state.display;
-    this.setState({ display: currentState + 2 });
+    const { display } = this.state;
+    this.setState({ display: display + 2 });
   }
 
   filter(value) {
+    const { questions } = this.state;
     const check = value.length;
     if (check > 2) {
-      const filteredArr = this.state.questions.filter((question) => (
+      const filteredArr = questions.filter((question) => (
         question.question_body.slice(0, check).toUpperCase() === value.toUpperCase()));
       this.setState({ rendered: filteredArr });
     } else {
-      const allQ = this.state.questions
-      this.setState({ rendered: allQ });
+      this.setState({ rendered: questions });
     }
   }
 
   render() {
-    if (this.state.questions.length === 0) {
+    // eslint-disable-next-line object-curly-newline
+    const { questions, productId, display, rendered, user } = this.state;
+    if (questions.length === 0) {
       return (
-        <Container><AddQuestion product={this.state.productId} /></Container>
+        <Container><AddQuestion productId={productId} /></Container>
       );
     }
-    if (this.state.rendered.length <= this.state.display) {
+    if (rendered.length <= display) {
       return (
         <Container>
           <Row><Search handleSearchInputChange={this.filter} /></Row>
           <Row style={{ maxHeight: 425, overflow: 'auto' }}>
-            {this.state.rendered.map((question) => (
+            {rendered.map((question) => (
               <Question
-                user={this.state.user}
-                product={this.state.productId}
+                user={user}
+                productId={productId}
                 question={question}
                 key={question.question_id}
               />
             ))}
           </Row>
-          <AddQuestion product={this.state.productId} />
+          <AddQuestion productId={productId} />
         </Container>
       );
     }
@@ -79,10 +83,10 @@ class List extends React.Component {
       <Container>
         <Row><Search handleSearchInputChange={this.filter} /></Row>
         <Row style={{ maxHeight: 425, overflow: 'auto' }}>
-          {this.state.rendered.slice(0, this.state.display).map((question) => (
+          {rendered.slice(0, display).map((question) => (
             <Question
-              user={this.state.user}
-              product={this.state.productId}
+              user={user}
+              productId={productId}
               question={question}
               key={question.question_id}
             />
@@ -94,7 +98,7 @@ class List extends React.Component {
               More Answered Questions
             </Button>
           </Col>
-          <Col><AddQuestion product={this.state.productId} /></Col>
+          <Col><AddQuestion productId={productId} /></Col>
         </Row>
       </Container>
     );

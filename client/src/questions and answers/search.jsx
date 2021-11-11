@@ -12,18 +12,20 @@ class Search extends React.Component {
   }
 
   handleChange(e) {
+    const { handleSearchInputChange } = this.props;
     this.setState({ value: e.target.value });
-    this.props.handleSearchInputChange(e.target.value);
+    handleSearchInputChange(e.target.value);
   }
 
   render() {
+    const { value } = this.state;
     return (
       <Container>
         <Form.Control
           size="lg"
           type="text"
           placeholder="Have a question? Search for answers…"
-          value={this.state.value}
+          value={value}
           onChange={this.handleChange}
         />
       </Container>

@@ -10,7 +10,7 @@ class AddQuestion extends React.Component {
     this.state = {
       show: false,
       validated: false,
-      asker_name: '',
+      name: '',
       body: '',
       email: '',
     };
@@ -29,8 +29,8 @@ class AddQuestion extends React.Component {
   }
 
   handleChange(e) {
-    if (e.target.id === 'asker_name') {
-      this.setState({ asker_name: e.target.value });
+    if (e.target.id === 'name') {
+      this.setState({ name: e.target.value });
     }
     if (e.target.id === 'body') {
       this.setState({ body: e.target.value });
@@ -42,21 +42,23 @@ class AddQuestion extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { body, name, email } = this.state;
+    const { productId } = this.props;
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
       this.setState({ validated: true });
     } else {
       axios.post('/api/qa/questions/', {
-        body: this.state.body,
-        name: this.state.asker_name,
-        email: this.state.email,
-        product_id: this.props.product,
+        body,
+        name,
+        email,
+        product_id: productId,
       })
         .then(this.setState({
           show: false,
           validated: false,
-          asker_name: '',
+          name: '',
           body: '',
           email: '',
         }))
@@ -65,6 +67,9 @@ class AddQuestion extends React.Component {
   }
 
   render() {
+    // eslint-disable-next-line object-curly-newline
+    const { show, validated, name, email, body } = this.state;
+    const { productId } = this.props;
     return (
       <>
         <Button variant="primary" onClick={this.handleShow}>
@@ -72,28 +77,29 @@ class AddQuestion extends React.Component {
         </Button>
 
         <Modal
-          show={this.state.show}
+          show={show}
           onHide={this.handleClose}
           backdrop="static"
           keyboard={false}
         >
           <Modal.Header closeButton>
             <Modal.Title>
-              Ask Your Question{"\n"}
-              <h6>About the {this.props.product}</h6>
+              Ask Your Question
+              {'\n'}
+              <h6>About the {productId}</h6>
             </Modal.Title>
 
           </Modal.Header>
           <Modal.Body>
-            <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-              <Form.Group controlId="asker_name">
+            <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
+              <Form.Group controlId="name">
                 <Form.Label>What is your nickname *</Form.Label>
                 <Form.Control
                   maxLength="60"
                   required
                   type="text"
                   placeholder="Example: jackson11"
-                  value={this.state.asker_name}
+                  value={name}
                   onChange={this.handleChange}
                 />
                 <Form.Text className="text-muted">
@@ -110,7 +116,7 @@ class AddQuestion extends React.Component {
                   required
                   type="email"
                   placeholder="Example: jack@email.com"
-                  value={this.state.email}
+                  value={email}
                   onChange={this.handleChange}
                 />
                 <Form.Text className="text-muted">
@@ -128,7 +134,7 @@ class AddQuestion extends React.Component {
                   as="textarea"
                   placeholder="Why did you like the product or not?"
                   rows={6}
-                  value={this.state.body}
+                  value={body}
                   onChange={this.handleChange}
                 />
                 <Form.Control.Feedback type="invalid">

@@ -10,7 +10,7 @@ class Answer extends React.Component {
     super(props);
     this.state = {
       user: '',
-      seller: 'a',
+      seller: false,
       reported: false,
       helpful: false,
       helpfulness: 0,
@@ -20,26 +20,31 @@ class Answer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.answer.answerer_name.toUpperCase() === 'SELLER') {
-      this.setState({ seller: 'b' });
+    const { user, answer: { helpfulness, answerer_name } } = this.props;
+    if (answerer_name.toUpperCase() === 'SELLER') {
+      this.setState({ seller: true });
     }
-    this.setState({ user: this.props.user, helpfulness: this.props.answer.helpfulness });
+    this.setState({ user, helpfulness });
     // TODO will need to set reported and helpful to true it they are already true in database
   }
 
   helpfulHandler() {
-    if (!this.state.helpful) {
-      axios.put(`/api/qa/questions/${this.props.answer.id}/helpful`,
-        { helpfulness: this.state.helpfulness + 1 })
-        .then(this.setState({ helpful: true, helpfulness: this.state.helpfulness + 1 }))
+    const { helpful, helpfulness } = this.state;
+    const { answer: { id } } = this.props;
+    if (!helpful) {
+      axios.put(`/api/qa/questions/${id}/helpful`,
+        { helpfulness: helpfulness + 1 })
+        .then(this.setState({ helpful: true, helpfulness: helpfulness + 1 }))
         // TODO Update helpful stat in database for current user
         .catch((err) => console.error(err));
     }
   }
 
   reportHandler() {
-    if (!this.state.reported) {
-      axios.put(`/api/qa/questions/${this.props.answer.id}/report`,
+    const { reported } = this.state;
+    const { answer: { id } } = this.props;
+    if (!reported) {
+      axios.put(`/api/qa/questions/${id}/report`,
         { reported: true })
         .then(this.setState({ reported: true }))
         // TODO Update reported stat in database for current user
@@ -48,25 +53,28 @@ class Answer extends React.Component {
   }
 
   render() {
+    const { helpfulness, reported, seller } = this.state;
+    const { answer: { id, answerer_name, date, body } } = this.props;
     return (
-      <Container>
-        <Row><h5>{this.props.answer.body}</h5></Row>
-        <Row style={ { fontSize: 12 } }>
+      <Container data-testid={id}>
+        <Row><h5>{body}</h5></Row>
+        <Row style={{ fontSize: 12 }}>
           <Col sm="auto">
-            by<this.state.seller> {this.props.answer.answerer_name}</this.state.seller>
+            by
+            {seller ? <b> {answerer_name}</b> : <span> {answerer_name}</span>}
           </Col>
           <Col sm="auto">
-            {new Date(`${this.props.answer.date}`).toDateString()}
+            {new Date(`${date}`).toDateString()}
           </Col>
           <Col sm="auto">
             Helpful?
             <Button variant="link" size="sm" onClick={this.helpfulHandler}>
-              {`Yes (${this.state.helpfulness})`}
+              {`Yes (${helpfulness})`}
             </Button>
           </Col>
           <Col sm="auto">
             <Button variant="link" size="sm" onClick={this.reportHandler}>
-              {this.state.reported ? 'Reported' : 'Report'}
+              {reported ? 'Reported' : 'Report'}
             </Button>
           </Col>
         </Row>

@@ -10,8 +10,8 @@ class AddAnswer extends React.Component {
     this.state = {
       show: false,
       validated: false,
-      question_id: null,
-      answerer_name: '',
+      questionId: null,
+      name: '',
       body: '',
       email: '',
       photos: [],
@@ -23,11 +23,19 @@ class AddAnswer extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ question_id: this.props.question_id });
+    const { questionId } = this.props;
+    this.setState({ questionId });
   }
 
   handleClose() {
-    this.setState({ show: false, validated: false });
+    this.setState({
+      show: false,
+      validated: false,
+      name: '',
+      body: '',
+      email: '',
+      photos: [],
+    });
   }
 
   handleShow() {
@@ -35,8 +43,8 @@ class AddAnswer extends React.Component {
   }
 
   handleChange(e) {
-    if (e.target.id === 'answerer_name') {
-      this.setState({ answerer_name: e.target.value });
+    if (e.target.id === 'name') {
+      this.setState({ name: e.target.value });
     }
     if (e.target.id === 'body') {
       this.setState({ body: e.target.value });
@@ -47,31 +55,25 @@ class AddAnswer extends React.Component {
   }
 
   handleSubmit(e) {
+    const { questionId, body, name, email, photos } = this.state;
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
       this.setState({ validated: true });
     } else {
-      axios.post(`/api/qa/questions/${this.state.question_id}/answers`, {
-        body: this.state.body,
-        name: this.state.answerer_name,
-        email: this.state.email,
-        photos: this.state.photos,
+      axios.post(`/api/qa/questions/${questionId}/answers`, {
+        body, name, email, photos,
       })
-        .then(this.setState({
-          show: false,
-          validated: false,
-          answerer_name: '',
-          body: '',
-          email: '',
-          photos: [],
-        }))
+        .then(this.handleClose())
         .catch((err) => console.error(err));
     }
   }
 
   render() {
+    // eslint-disable-next-line object-curly-newline
+    const { show, validated, name, email, body } = this.state;
+    const { productId, question } = this.props;
     return (
       <>
         <Button variant="link" onClick={this.handleShow}>
@@ -79,26 +81,30 @@ class AddAnswer extends React.Component {
         </Button>
 
         <Modal
-          show={this.state.show}
+          show={show}
           onHide={this.handleClose}
           backdrop="static"
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Submit your Answer{"\n"}
-              <h6>{this.props.product}: {this.props.question}</h6>
+            <Modal.Title>
+              Submit your Answer
+              {'\n'}
+              <h6>
+                {productId}: {question}
+              </h6>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-              <Form.Group controlId="answerer_name">
+            <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
+              <Form.Group controlId="name">
                 <Form.Label>What is your nickname *</Form.Label>
                 <Form.Control
                   maxLength="60"
                   required
                   type="text"
                   placeholder="Example: jackson11"
-                  value={this.state.answerer_name}
+                  value={name}
                   onChange={this.handleChange}
                 />
                 <Form.Text className="text-muted">
@@ -115,7 +121,7 @@ class AddAnswer extends React.Component {
                   required
                   type="email"
                   placeholder="Example: jack@email.com"
-                  value={this.state.email}
+                  value={email}
                   onChange={this.handleChange}
                 />
                 <Form.Text className="text-muted">
@@ -132,7 +138,7 @@ class AddAnswer extends React.Component {
                   required
                   as="textarea"
                   rows={6}
-                  value={this.state.body}
+                  value={body}
                   onChange={this.handleChange}
                 />
                 <Form.Control.Feedback type="invalid">

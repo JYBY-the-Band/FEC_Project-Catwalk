@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import QaIndex from './questions and answers/qaIndex.jsx';
 
-let App = () => (
+const App = () => (
   <div>
-    <QaIndex></QaIndex>
+    <QaIndex />
   </div>
 );
 
