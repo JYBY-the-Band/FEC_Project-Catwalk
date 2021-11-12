@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Overview from './overview/overview.jsx';
 import QaIndex from './questions and answers/qaIndex.jsx';
 
-const App = () => (
+let App = () => (
   <div>
+    <Overview />
     <QaIndex />
   </div>
 );
