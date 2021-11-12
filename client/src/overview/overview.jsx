@@ -4,6 +4,8 @@ import ProductInfo from './ProductInfo.jsx';
 import StarRating from './StarRating.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
+import Description from './Description.jsx';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -135,7 +137,13 @@ let Overview = (props) => {
       <Row>
 
         <Col xs={6}>
-          <ImageGallery data={productStyles} selectedStyle={selectedStyle} />
+          <Row>
+            <ImageGallery data={productStyles} selectedStyle={selectedStyle} />
+          </Row>
+
+          <Row>
+            <Description data={productData} />
+          </Row>
         </Col>
         <Col xs={5}>
           <StarRating data={reviewMetaData} />
