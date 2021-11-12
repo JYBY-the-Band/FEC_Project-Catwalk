@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import Divider from '@material-ui/core/Divider';
-import config from '../../config';
+import config from '../../../server/config.js';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import RelatedProducts from './components/RelatedProducts';
-import OutfitList from './components/OutfitList';
+import RelatedProducts from './components/RelatedProducts.jsx';
+import OutfitList from './components/OutfitList.jsx';
 
 const Comparison = ({ productId, setProductId, productName, productRating, currentStyleData}) => {
   const [products, setProducts] = useState([]);

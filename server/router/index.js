@@ -3,7 +3,6 @@ const router = express.Router();
 
 const products = require('./products.js');
 const cart = require('./cart.js');
-const products = require('./products');
 const questions = require('./questions');
 
 
