@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 
 class AddAnswer extends React.Component {
@@ -15,6 +16,7 @@ class AddAnswer extends React.Component {
       body: '',
       email: '',
       photos: [],
+      thumbnails: [],
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
@@ -34,7 +36,7 @@ class AddAnswer extends React.Component {
       name: '',
       body: '',
       email: '',
-      photos: [],
+      photos: [null],
     });
   }
 
@@ -51,6 +53,20 @@ class AddAnswer extends React.Component {
     }
     if (e.target.id === 'email') {
       this.setState({ email: e.target.value });
+    }
+    if (e.target.id === 'photos') {
+      const { photos, thumbnails } = this.state;
+      const container = [];
+      const fileArray = photos;
+      const thumbArray = thumbnails;
+      container.push(e.target.files);
+      for (let i = 0; i < container[0].length; i++) {
+        if (thumbArray.length < 5) {
+          fileArray.push(container[0][i]);
+          thumbArray.push(URL.createObjectURL(container[0][i]));
+        }
+      }
+      this.setState({ photos: fileArray, thumbnails: thumbArray });
     }
   }
 
@@ -72,7 +88,7 @@ class AddAnswer extends React.Component {
 
   render() {
     // eslint-disable-next-line object-curly-newline
-    const { show, validated, name, email, body } = this.state;
+    const { show, validated, name, email, body, photos, thumbnails } = this.state;
     const { productId, question } = this.props;
     return (
       <>
@@ -145,7 +161,21 @@ class AddAnswer extends React.Component {
                   You must enter an answer
                 </Form.Control.Feedback>
               </Form.Group>
-              <Button variant="primary" size="sm" type="submit">
+              <Form.Group controlId="photos" className="mb-3">
+                <Form.Label>Upload up to 5 Photos</Form.Label>
+                <Form.Control
+                  type="file"
+                  multiple
+                  onChange={this.handleChange}
+                  disabled={photos.length === 5}
+                />
+              </Form.Group>
+              <Form.Group className="preview">
+                {thumbnails.map((url) => (
+                  <Image src={url} thumbnail key={url} />
+                ))}
+              </Form.Group>
+              <Button variant="primary" size="sm" type="thumbnail">
                 Submit
               </Button>
             </Form>
