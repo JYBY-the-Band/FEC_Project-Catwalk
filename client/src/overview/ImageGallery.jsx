@@ -23,11 +23,7 @@ let ImageGallery = (props) => {
         return (
           <Carousel.Item>
             <img
-              className='d-block p-3 mx-auto'
-              style={{
-                maxHeight: '750px',
-                maxWidth: '800px'
-              }}
+              className='d-block w-100 p-3 mx-auto'
               src={item.photos[0].url}
             />
           </Carousel.Item>

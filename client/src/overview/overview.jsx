@@ -7,6 +7,7 @@ import StyleSelector from './StyleSelector.jsx';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 
 // let productData = {
 //   id: 1,
@@ -123,19 +124,20 @@ let Overview = (props) => {
   if (!productStyles || !productData) {
     // TODO make this a spinner maybe
     return (
-      <div>
-        ...loading
-      </div>
+      // <div>
+      //   ...loading
+      // </div>
+      <Spinner animation='border' size='lg' />
     )
   }
   return (
     <Container>
       <Row>
 
-        <Col>
+        <Col xs={6}>
           <ImageGallery data={productStyles} selectedStyle={selectedStyle} />
         </Col>
-        <Col xs={3}>
+        <Col xs={5}>
           <StarRating data={reviewMetaData} />
           <ProductInfo data={productData} selectedStyle={selectedStyle} styles={productStyles} />
           <StyleSelector data={productStyles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
