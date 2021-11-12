@@ -47,7 +47,7 @@ let ImageGallery = (props) => {
               <img
                 className='d-inline my-2'
                 style={{
-                  border: '2px solid darkGrey',
+                  border: '1px solid #666',
                   maxWidth: '40px',
                   maxHeight: '40px'
                 }}

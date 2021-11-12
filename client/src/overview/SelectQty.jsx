@@ -8,8 +8,14 @@ let SelectQty = (props) => {
       <Dropdown onSelect={(e) => {
         props.selectQty(e);
       }}>
-        <Dropdown.Toggle style={{ width: '100%' }} variant='primary' id='select-size-dropdown'>
-          {props.selectedQty ? props.selectedQty: 'Qty'}
+        <Dropdown.Toggle style={{
+          width: '100%',
+          backgroundColor: 'white',
+          border: '1px solid #666',
+          color: '#666',
+          borderRadius: '0px'
+        }} variant='secondary' id='select-size-dropdown'>
+          {props.selectedQty ? props.selectedQty : 'Qty'}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
@@ -22,7 +28,13 @@ let SelectQty = (props) => {
   }
   return (
     <Dropdown>
-      <Dropdown.Toggle style={{ width: '100%' }} variant='primary' id='select-size-dropdown'>
+      <Dropdown.Toggle style={{
+        width: '100%',
+        backgroundColor: 'white',
+        border: '1px solid #666',
+        color: '#666',
+        borderRadius: '0px'
+      }} variant='primary' id='select-size-dropdown'>
         -
       </Dropdown.Toggle>
     </Dropdown>
