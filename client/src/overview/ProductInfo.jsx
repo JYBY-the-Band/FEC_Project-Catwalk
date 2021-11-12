@@ -18,7 +18,8 @@ let ProductInfo = (props) => {
       <Row>
         <p>
           {/* TODO: sales */}
-          ${props.styles.results[props.selectedStyle].original_price}
+          {props.styles.results[props.selectedStyle].sale_price ? <div> <strike>${props.styles.results[props.selectedStyle].original_price}</strike> ${props.styles.results[props.selectedStyle].sale_price}</div> : '$' + props.styles.results[props.selectedStyle].original_price}
+          {/* ${props.styles.results[props.selectedStyle].original_price} */}
         </p>
       </Row>
     </div>

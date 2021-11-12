@@ -101,7 +101,7 @@ let reviewMetaData = {
 // TODO: find a item with an overview and figure out what to do with it
 let Overview = (props) => {
 
-  const [id, setId] = useState(42368);
+  const [id, setId] = useState(42366);
   const [selectedStyle, selectStyle] = useState(0);
 
   const [productData, setProductData] = useState();
