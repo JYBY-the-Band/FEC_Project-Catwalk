@@ -1,54 +1,36 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 
-// reference taken from recast.ly
-// class Search extends React.Component {
-//   constructor(props) {
-//     super(props);
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-//     this.state = {
-//       value: ''
-//     };
-//   }
+  handleChange(e) {
+    const { handleSearchInputChange } = this.props;
+    this.setState({ value: e.target.value });
+    handleSearchInputChange(e.target.value);
+  }
 
-//   handleInputChange(e) {
-//     this.props.handleSearchInputChange(e.target.value);
-//     this.setState({
-//       value: e.target.value
-//     });
-//   }
+  render() {
+    const { value } = this.state;
+    return (
+      <Container>
+        <Form.Control
+          size="lg"
+          type="text"
+          placeholder="Have a question? Search for answers…"
+          value={value}
+          onChange={this.handleChange}
+        />
+      </Container>
+    );
+  }
+}
 
-//   render() {
-//     return (
-//       <div className="search-bar form-inline">
-//         <input
-//           className="form-control"
-//           type="text"
-//           value={this.state.value}
-//           onChange={this.handleInputChange.bind(this)}
-//         />
-//         <button className="btn hidden-sm-down">
-//           <span className="glyphicon glyphicon-search"></span>
-//         </button>
-//       </div>
-//     );
-//   }
-// }
-// // This is the uncontrolled component solution
-// // It is not used, just here for reference
-// var UncontrolledSearch = ({handleSearchInputChange}) => (
-//   <div className="search-bar form-inline">
-//     <input
-//       className="form-control"
-//       type="text"
-//       onChange={(e) => handleSearchInputChange(e.target.value)}
-//     />
-//     <button className="btn hidden-sm-down">
-//       <span className="glyphicon glyphicon-search"></span>
-//     </button>
-//   </div>
-// );
-
-// // In the ES6 spec, files are "modules" and do not share a top-level scope
-// // `var` declarations will only exist globally where explicitly defined
-// export default Search;
+export default Search;

@@ -1,49 +1,160 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
-// reference taken from https://www.npmjs.com/package/react-modal
-// Modal.setAppElement('#yourAppElement');
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
-// function App() {
-//   let subtitle;
-//   const [modalIsOpen, setIsOpen] = React.useState(false);
+class AddQuestion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false,
+      validated: false,
+      name: '',
+      body: '',
+      email: '',
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-//   function openModal() {
-//     setIsOpen(true);
-//   }
+  handleClose() {
+    this.setState({ show: false, validated: false });
+  }
 
-//   function afterOpenModal() {
-//     // references are now sync'd and can be accessed.
-//     subtitle.style.color = '#f00';
-//   }
+  handleShow() {
+    this.setState({ show: true });
+  }
 
-//   function closeModal() {
-//     setIsOpen(false);
-//   }
+  handleChange(e) {
+    if (e.target.id === 'name') {
+      this.setState({ name: e.target.value });
+    }
+    if (e.target.id === 'body') {
+      this.setState({ body: e.target.value });
+    }
+    if (e.target.id === 'email') {
+      this.setState({ email: e.target.value });
+    }
+  }
 
-//   return (
-//     <div>
-//       <button onClick={openModal}>Open Modal</button>
-//       <Modal
-//         isOpen={modalIsOpen}
-//         onAfterOpen={afterOpenModal}
-//         onRequestClose={closeModal}
-//         style={customStyles}
-//         contentLabel="Example Modal"
-//       >
-//         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-//         <button onClick={closeModal}>close</button>
-//         <div>I am a modal</div>
-//         <form>
-//           <input />
-//           <button>tab navigation</button>
-//           <button>stays</button>
-//           <button>inside</button>
-//           <button>the modal</button>
-//         </form>
-//       </Modal>
-//     </div>
-//   );
-// }
+  handleSubmit(e) {
+    e.preventDefault();
+    const { body, name, email } = this.state;
+    const { productId } = this.props;
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      this.setState({ validated: true });
+    } else {
+      axios.post('/api/qa/questions/', {
+        body,
+        name,
+        email,
+        product_id: productId,
+      })
+        .then(this.setState({
+          show: false,
+          validated: false,
+          name: '',
+          body: '',
+          email: '',
+        }))
+        .catch((err) => console.error(err));
+    }
+  }
 
-// ReactDOM.render(<App />, appElement);
+  render() {
+    // eslint-disable-next-line object-curly-newline
+    const { show, validated, name, email, body } = this.state;
+    const { productId } = this.props;
+    return (
+      <>
+        <Button variant="primary" onClick={this.handleShow}>
+          Add  a Question +
+        </Button>
+
+        <Modal
+          show={show}
+          onHide={this.handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Ask Your Question
+              {'\n'}
+              <h6>About the {productId}</h6>
+            </Modal.Title>
+
+          </Modal.Header>
+          <Modal.Body>
+            <Form noValidate validated={validated} onSubmit={this.handleSubmit}>
+              <Form.Group controlId="name">
+                <Form.Label>What is your nickname *</Form.Label>
+                <Form.Control
+                  maxLength="60"
+                  required
+                  type="text"
+                  placeholder="Example: jackson11"
+                  value={name}
+                  onChange={this.handleChange}
+                />
+                <Form.Text className="text-muted">
+                  For privacy reasons, do not use your full name or email address
+                </Form.Text>
+                <Form.Control.Feedback type="invalid">
+                  You must enter a nickname
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Label>Your Email *</Form.Label>
+                <Form.Control
+                  maxLength="60"
+                  required
+                  type="email"
+                  placeholder="Example: jack@email.com"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <Form.Text className="text-muted">
+                  For authentication reasons, you will not be emailed
+                </Form.Text>
+                <Form.Control.Feedback type="invalid">
+                  You must enter a valid email
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="body">
+                <Form.Label>Your Question *</Form.Label>
+                <Form.Control
+                  maxLength="1000"
+                  required
+                  as="textarea"
+                  placeholder="Why did you like the product or not?"
+                  rows={6}
+                  value={body}
+                  onChange={this.handleChange}
+                />
+                <Form.Control.Feedback type="invalid">
+                  You must ask a question
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button variant="primary" size="sm" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
+}
+
+export default AddQuestion;
