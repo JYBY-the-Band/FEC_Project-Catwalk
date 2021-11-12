@@ -12,7 +12,7 @@ let Style = (props) => {
     return (
       <div>
         <img
-          className='d-inline w-100 py-3 border border-dark rounded-circle'
+          className='d-inline w-100 border border-dark rounded-circle my-2'
           src={props.data.photos[0].thumbnail_url}
           onClick={() => {
             props.selectStyle(props.index);
@@ -27,7 +27,7 @@ let Style = (props) => {
   return (
     <div>
       <img
-        className='d-inline w-100 py-3 border border-dark rounded-circle'
+        className='d-inline w-100 border border-dark rounded-circle my-2'
         src={props.data.photos[0].thumbnail_url}
         onClick={() => {
           props.selectStyle(props.index);
@@ -37,9 +37,9 @@ let Style = (props) => {
         style={
           {
             position: 'absolute',
-            transform: 'translate(-50%, 0%)',
-            width: '40px',
-            height: '40px',
+            transform: 'translate(-100%, 50%)',
+            width: '20px',
+            height: '20px',
             backgroundColor: 'white',
             borderRadius: '20px',
             border: '1px solid black'
