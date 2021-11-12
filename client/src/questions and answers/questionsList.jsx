@@ -13,7 +13,7 @@ class List extends React.Component {
     super(props);
     this.state = {
       user: '', // TODO, figure out where user info comes from
-      productId: 42366, // TODO, get state from product module
+      productId: 42368, // TODO, get state from product module
       questions: [],
       rendered: [],
       display: 2,
