@@ -18,7 +18,7 @@ let ImageGallery = (props) => {
   }
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect} wrap={false}>
+    <Carousel indicators={false} activeIndex={index} onSelect={handleSelect} wrap={false}>
       {props.data.results.map(item => {
         return (
           <Carousel.Item>
@@ -30,7 +30,14 @@ let ImageGallery = (props) => {
         )
       })}
       {/* TODO: style this so it stacks on the side */}
-      <ol className='carousel-indicators'>
+      <ol className='carousel-indicators' style={{
+        top: '0',
+        transform: 'translate(-30px, 0px)',
+        transformOrigin: 'bottom left',
+        display: 'flex',
+        flexDirection: 'column',
+        aliginItems: 'center'
+      }}>
         {props.data.results.map((item, index) => {
           return (
             <li
@@ -38,7 +45,12 @@ let ImageGallery = (props) => {
               onClick={(e) => handleSelect(index, e)}
             >
               <img
-                className='d-inline w-50 img-thumbnail'
+                className='d-inline my-2'
+                style={{
+                  border: '2px solid darkGrey',
+                  maxWidth: '40px',
+                  maxHeight: '40px'
+                }}
                 src={item.photos[0].thumbnail_url}
               />
             </li>
