@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 
 class Answer extends React.Component {
@@ -54,10 +55,15 @@ class Answer extends React.Component {
 
   render() {
     const { helpfulness, reported, seller } = this.state;
-    const { answer: { id, answerer_name, date, body } } = this.props;
+    const { answer: { id, answerer_name, date, body, photos } } = this.props;
     return (
       <Container data-testid={id}>
         <Row><h5>{body}</h5></Row>
+        <Row>
+          {photos.map((url) => (
+            <Image src={url} thumbnail key={url} />
+          ))}
+        </Row>
         <Row style={{ fontSize: 12 }}>
           <Col sm="auto">
             by

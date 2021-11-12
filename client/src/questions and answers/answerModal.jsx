@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 import axios from 'axios';
 
 class AddAnswer extends React.Component {
