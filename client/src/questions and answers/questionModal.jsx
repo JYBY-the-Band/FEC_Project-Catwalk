@@ -69,7 +69,7 @@ class AddQuestion extends React.Component {
   render() {
     // eslint-disable-next-line object-curly-newline
     const { show, validated, name, email, body } = this.state;
-    const { productId } = this.props;
+    const { productName } = this.props;
     return (
       <>
         <Button variant="primary" onClick={this.handleShow}>
@@ -86,7 +86,7 @@ class AddQuestion extends React.Component {
             <Modal.Title>
               Ask Your Question
               {'\n'}
-              <h6>About the {productId}</h6>
+              <h6>{`About the ${productName}`}</h6>
             </Modal.Title>
 
           </Modal.Header>

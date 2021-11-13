@@ -36,7 +36,8 @@ class AddAnswer extends React.Component {
       name: '',
       body: '',
       email: '',
-      photos: [null],
+      photos: [],
+      thumbnails: [],
     });
   }
 
@@ -71,6 +72,7 @@ class AddAnswer extends React.Component {
   }
 
   handleSubmit(e) {
+    // eslint-disable-next-line object-curly-newline
     const { questionId, body, name, email, photos } = this.state;
     e.preventDefault();
     const form = e.currentTarget;
@@ -89,7 +91,7 @@ class AddAnswer extends React.Component {
   render() {
     // eslint-disable-next-line object-curly-newline
     const { show, validated, name, email, body, photos, thumbnails } = this.state;
-    const { productId, question } = this.props;
+    const { productName, question } = this.props;
     return (
       <>
         <Button variant="link" onClick={this.handleShow}>
@@ -107,7 +109,7 @@ class AddAnswer extends React.Component {
               Submit your Answer
               {'\n'}
               <h6>
-                {productId}: {question}
+                {`${productName}: ${question}`}
               </h6>
             </Modal.Title>
           </Modal.Header>

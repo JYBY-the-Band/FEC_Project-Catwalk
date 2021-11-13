@@ -5,6 +5,7 @@ import StarRating from './StarRating.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import Description from './Description.jsx';
+import List from '../questions and answers/questionsList.jsx';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -151,6 +152,8 @@ let Overview = (props) => {
           <StyleSelector data={productStyles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
         </Col>
       </Row>
+      <Row><List productId={id} productName={productData.name}/></Row>
+      {/* tied the Q&A module here for prop drilling */}
     </Container>
   )
 }

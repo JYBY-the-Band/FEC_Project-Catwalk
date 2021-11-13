@@ -61,7 +61,7 @@ class Question extends React.Component {
   render() {
     // eslint-disable-next-line object-curly-newline
     const { answers, helpfulness, user, toggle } = this.state;
-    const { productId, question: { question_body, question_id } } = this.props;
+    const { productName, question: { question_body, question_id } } = this.props;
     if (answers.length > 2) {
       return (
         <Container>
@@ -80,7 +80,7 @@ class Question extends React.Component {
             <Col sm={2}>
               <AddAnswer
                 questionId={question_id}
-                productId={productId}
+                productName={productName}
                 question={question_body}
               />
             </Col>
@@ -125,7 +125,7 @@ class Question extends React.Component {
           <Col sm={2}>
             <AddAnswer
               questionId={question_id}
-              productId={productId}
+              productName={productName}
               question={question_body}
             />
           </Col>

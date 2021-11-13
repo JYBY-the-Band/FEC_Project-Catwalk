@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Divider from '@material-ui/core/Divider';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const Comparison_Modal = (props) => {
+const ComparisonModal = (props) => {
   const divProps = { ...props };
   delete divProps.arrowProps;
   divProps.show = 'true';
@@ -108,4 +108,4 @@ const Comparison_Modal = (props) => {
   );
 };
 
-export default Comparison_Modal;
+export default ComparisonModal;

@@ -13,7 +13,7 @@ class List extends React.Component {
     super(props);
     this.state = {
       user: '', // TODO, figure out where user info comes from
-      productId: 42368, // TODO, get state from product module
+      productId: 0,
       questions: [],
       rendered: [],
       display: 2,
@@ -23,15 +23,15 @@ class List extends React.Component {
   }
 
   componentDidMount() {
-    const { productId } = this.state;
-    const { user } = this.props;
+    const { user, productId } = this.props;
     axios.get(`/api/qa/questions/${productId}`)
       .then(({ data }) => data.results.sort((a, b) => (
         b.question_helpfulness - a.question_helpfulness)))
       .then((results) => this.setState({
+        user, // assuming user will be passed as a prop
+        productId,
         questions: results,
         rendered: results,
-        user, // assuming user will be passed as a prop
       }))
       .catch((err) => console.error(err));
   }
@@ -56,9 +56,12 @@ class List extends React.Component {
   render() {
     // eslint-disable-next-line object-curly-newline
     const { questions, productId, display, rendered, user } = this.state;
+    const {productName} = this.props;
     if (questions.length === 0) {
       return (
-        <Container><AddQuestion productId={productId} /></Container>
+        <Container>
+          <AddQuestion productId={productId} productName={productName} />
+        </Container>
       );
     }
     if (rendered.length <= display) {
@@ -70,12 +73,13 @@ class List extends React.Component {
               <Question
                 user={user}
                 productId={productId}
+                productName={productName}
                 question={question}
                 key={question.question_id}
               />
             ))}
           </Row>
-          <AddQuestion productId={productId} />
+          <AddQuestion productId={productId} productName={productName} />
         </Container>
       );
     }
@@ -87,6 +91,7 @@ class List extends React.Component {
             <Question
               user={user}
               productId={productId}
+              productName={productName}
               question={question}
               key={question.question_id}
             />
@@ -98,7 +103,7 @@ class List extends React.Component {
               More Answered Questions
             </Button>
           </Col>
-          <Col><AddQuestion productId={productId} /></Col>
+          <Col><AddQuestion productId={productId} productName={productName} /></Col>
         </Row>
       </Container>
     );

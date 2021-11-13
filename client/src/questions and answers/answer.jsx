@@ -26,7 +26,7 @@ class Answer extends React.Component {
       this.setState({ seller: true });
     }
     this.setState({ user, helpfulness });
-    // TODO will need to set reported and helpful to true it they are already true in database
+    // TODO set reported and helpful to true it they are already true in database for user
   }
 
   helpfulHandler() {

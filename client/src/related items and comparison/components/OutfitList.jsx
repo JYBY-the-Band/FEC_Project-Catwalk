@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import CardDeck from 'react-bootstrap/CardDeck';
+import CardGroup from 'react-bootstrap/CardGroup';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Fab from '@material-ui/core/Fab';
-import styles from './price.module.css';
+// import styles from './price.module.css';
 
 const OutfitList = ({
   productId, productName, productStyle, productRating, changeProduct
@@ -136,7 +136,7 @@ const OutfitList = ({
       <h5 style={{ marginTop: '20px' }}>Outfit Products</h5>
       <Carousel interval={null} indicators={false} id="outfit-carousel" style={{ marginBottom: '20px' }}>
         <Carousel.Item id="first-list">
-          <CardDeck className="outfit-group">
+          <CardGroup className="outfit-group">
             <Card id="add-card" onClick={() => { setAddedOutfit(true); }} style={{ width: '5rem' }}>
               <Fab id="add-button">
                 <h2 id="add-button-text">Add to outfit</h2>
@@ -271,10 +271,10 @@ const OutfitList = ({
                       ))}
                     </>
                   )}
-          </CardDeck>
+          </CardGroup>
         </Carousel.Item>
         <Carousel.Item id="second-list">
-          <CardDeck>
+          <CardGroup>
             {outfitList2.length === 0
               ? (
                 <>
@@ -445,7 +445,7 @@ const OutfitList = ({
                       ))}
                     </>
                   )}
-          </CardDeck>
+          </CardGroup>
         </Carousel.Item>
       </Carousel>
       <style>

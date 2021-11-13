@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
+import CardGroup from 'react-bootstrap/CardGroup';
 import Carousel from 'react-bootstrap/Carousel';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { arrayOf } from 'prop-types';
-import styles from './price.module.css';
-import Comparison_Modal from './Comparison-Modal';
+// import styles from './price.module.css';
+import ComparisonModal from './Comparison-Modal.jsx';
 
 const RelatedProducts = ({
   products, images, style, ratings, setProductId, productName, productRating, productStyle, changeProduct,
@@ -76,12 +76,12 @@ const RelatedProducts = ({
         <Carousel interval={null} indicators={false} id="related-carousel" controls={false}>
           {arrayOfArrayProducts.map((array, index) => (
             <Carousel.Item key={index}>
-              <CardDeck>
+              <CardGroup>
                 {array.map((item, index) => (
                   <OverlayTrigger
                     placement="top"
                     delay={{ show: 250, hide: 400 }}
-                    overlay={Comparison_Modal}
+                    overlay={ComparisonModal}
                     key={index}
                     popperConfig={{
                       productName,
@@ -125,7 +125,7 @@ const RelatedProducts = ({
                     </Card>
                   </OverlayTrigger>
                 ))}
-              </CardDeck>
+              </CardGroup>
             </Carousel.Item>
           ))}
         </Carousel>
@@ -133,12 +133,12 @@ const RelatedProducts = ({
         <Carousel interval={null} indicators={false} id="related-carousel">
           {arrayOfArrayProducts.map((array, index) => (
             <Carousel.Item key={index}>
-              <CardDeck>
+              <CardGroup>
                 {array.map((item, index) => (
                   <OverlayTrigger
                     placement="top"
                     delay={{ show: 250, hide: 400 }}
-                    overlay={Comparison_Modal}
+                    overlay={ComparisonModal}
                     key={index}
                     popperConfig={{
                       productName,
@@ -182,7 +182,7 @@ const RelatedProducts = ({
                     </Card>
                   </OverlayTrigger>
                 ))}
-              </CardDeck>
+              </CardGroup>
             </Carousel.Item>
           ))}
         </Carousel>

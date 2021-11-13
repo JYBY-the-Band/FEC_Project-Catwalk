@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Overview from './overview/overview.jsx';
-import QaIndex from './questions and answers/qaIndex.jsx';
+// import List from './questions and answers/questionsList.jsx';
 import Comparison from './related items and comparison/Comparsion.jsx';
 
 let App = () => (
   <div>
     <Overview />
-    <QaIndex />
-    <Comparison />
+    {/* <List />  tied list directly into overview for prop drilling */}
+    {/* <Comparison /> */}
   </div>
 );
 
